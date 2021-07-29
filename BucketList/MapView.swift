@@ -9,22 +9,20 @@ import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
+    @Binding var centerCoordinate: CLLocationCoordinate2D
+    var annotations: [MKPointAnnotation]
 
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
-
-        let annotation = MKPointAnnotation()
-        annotation.title = "London"
-        annotation.subtitle = "Capital of United Kingdom"
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
-        mapView.addAnnotation(annotation)
-
         return mapView
     }
 
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        //
+    func updateUIView(_ view: MKMapView, context: Context) {
+        if annotations.count != view.annotations.count {
+            view.removeAnnotations(view.annotations)
+            view.addAnnotations(annotations)
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -39,7 +37,7 @@ struct MapView: UIViewRepresentable {
         }
 
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-            print(mapView.centerCoordinate)
+            parent.centerCoordinate = mapView.centerCoordinate
         }
 
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -49,4 +47,10 @@ struct MapView: UIViewRepresentable {
         }
     }
 
+}
+
+struct MapView_Previews: PreviewProvider {
+    static var previews: some View {
+        MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate), annotations: [MKPointAnnotation.example])
+    }
 }

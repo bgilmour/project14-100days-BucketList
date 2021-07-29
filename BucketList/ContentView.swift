@@ -6,19 +6,59 @@
 //
 
 import SwiftUI
+import MapKit
 import LocalAuthentication
 
 struct ContentView: View {
     var body: some View {
-        BiometricsTestView()
+        MapViewTestView()
     }
 }
 
 struct MapViewTestView: View {
+    @State private var centerCoordinate = CLLocationCoordinate2D()
+    @State private var locations = [MKPointAnnotation]()
 
     var body: some View {
-        MapView()
-            .edgesIgnoringSafeArea(.all)
+        ZStack {
+            MapView(centerCoordinate: $centerCoordinate, annotations: locations)
+                .edgesIgnoringSafeArea(.all)
+
+            Circle()
+                .fill(Color.blue)
+                .opacity(0.3)
+                .frame(width: 32, height: 32)
+
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        let newLocation = MKPointAnnotation()
+                        newLocation.coordinate = centerCoordinate
+                        locations.append(newLocation)
+                    }) {
+                        Image(systemName: "plus")
+                    }
+                    .padding()
+                    .background(Color.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .clipShape(Circle())
+                    .padding(.trailing)
+                }
+            }
+        }
+    }
+}
+
+extension MKPointAnnotation {
+    static var example: MKPointAnnotation {
+        let annotation = MKPointAnnotation()
+        annotation.title = "London"
+        annotation.subtitle = "Home to the 2012 Summer Olympics."
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
+        return annotation
     }
 }
 
