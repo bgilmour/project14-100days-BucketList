@@ -12,6 +12,7 @@
 		3EF977F526B20EAA00769DBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF977F426B20EAA00769DBC /* Assets.xcassets */; };
 		3EF977F826B20EAA00769DBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF977F726B20EAA00769DBC /* Preview Assets.xcassets */; };
 		3EF9780126B221E000769DBC /* FileManager-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780026B221E000769DBC /* FileManager-Extension.swift */; };
+		3EF9780526B2368E00769DBC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780426B2368E00769DBC /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		3EF977F726B20EAA00769DBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3EF977F926B20EAA00769DBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EF9780026B221E000769DBC /* FileManager-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-Extension.swift"; sourceTree = "<group>"; };
+		3EF9780426B2368E00769DBC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				3EF977F026B20E9E00769DBC /* BucketListApp.swift */,
 				3EF977F226B20E9E00769DBC /* ContentView.swift */,
+				3EF9780426B2368E00769DBC /* MapView.swift */,
 				3EF9780026B221E000769DBC /* FileManager-Extension.swift */,
 				3EF977F426B20EAA00769DBC /* Assets.xcassets */,
 				3EF977F926B20EAA00769DBC /* Info.plist */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EF9780126B221E000769DBC /* FileManager-Extension.swift in Sources */,
+				3EF9780526B2368E00769DBC /* MapView.swift in Sources */,
 				3EF977F326B20E9E00769DBC /* ContentView.swift in Sources */,
 				3EF977F126B20E9E00769DBC /* BucketListApp.swift in Sources */,
 			);
