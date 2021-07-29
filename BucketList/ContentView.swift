@@ -9,8 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ComparableUserTestView()
+        DocumentsTestView()
     }
+}
+
+struct DocumentsTestView: View {
+
+    var body: some View {
+        Text("DocumentsTestView")
+            .onTapGesture {
+                let str = "Test message"
+                let url = FileManager.getUserFile("message.txt")
+
+                do {
+                    try str.write(to: url, atomically: true, encoding: .utf8)
+                    let input = try String(contentsOf: url)
+                    print(input)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+    }
+
 }
 
 struct User: Identifiable, Comparable {
