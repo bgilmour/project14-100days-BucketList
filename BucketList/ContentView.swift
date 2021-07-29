@@ -20,6 +20,7 @@ struct MapViewTestView: View {
     @State private var locations = [MKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
     @State private var showingPlaceDetails = false
+    @State private var showingEditScreen = false
 
     var body: some View {
         ZStack {
@@ -42,9 +43,10 @@ struct MapViewTestView: View {
                     Spacer()
                     Button(action: {
                         let newLocation = MKPointAnnotation()
-                        newLocation.title = "Example Location"
                         newLocation.coordinate = centerCoordinate
                         locations.append(newLocation)
+                        selectedPlace = newLocation
+                        showingEditScreen = true
                     }) {
                         Image(systemName: "plus")
                     }
@@ -63,9 +65,14 @@ struct MapViewTestView: View {
                 message: Text(selectedPlace?.subtitle ?? "Missing place information."),
                 primaryButton: .default(Text("OK")),
                 secondaryButton: .default(Text("Edit")) {
-                    // edit this place
+                    showingEditScreen = true
                 }
             )
+        }
+        .sheet(isPresented: $showingEditScreen) {
+            if selectedPlace != nil {
+                EditView(placemark: selectedPlace!)
+            }
         }
     }
 }
@@ -158,7 +165,7 @@ struct DocumentsTestView: View {
         Text("DocumentsTestView")
             .onTapGesture {
                 let str = "Test message"
-                let url = FileManager.getUserFile("message.txt")
+                let url = FileManager.default.getUserFile(with: "message.txt")
 
                 do {
                     try str.write(to: url, atomically: true, encoding: .utf8)
