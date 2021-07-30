@@ -33,7 +33,7 @@ struct EditView: View {
                             Text(page.title)
                                 .font(.headline)
                             + Text(": ") +
-                            Text("Page description here.")
+                                Text(page.description)
                         }
                     } else if loadingState == .loading {
                         Text("Loading...")
@@ -62,7 +62,7 @@ struct EditView: View {
             if let data = data {
                 let decoder = JSONDecoder()
                 if let items = try? decoder.decode(Result.self, from: data) {
-                    pages = Array(items.query.pages.values)
+                    pages = Array(items.query.pages.values).sorted()
                     loadingState = .loaded
                     return
                 }
