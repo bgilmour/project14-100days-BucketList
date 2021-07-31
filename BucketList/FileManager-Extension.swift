@@ -8,7 +8,7 @@
 import Foundation
 
 extension FileManager {
-    func getUserDirectory(for directory: SearchPathDirectory = .documentDirectory) -> URL {
+    func getUserDirectory(in directory: SearchPathDirectory = .documentDirectory) -> URL {
         // find all possible documents directories for this user
         let paths = self.urls(for: directory, in: .userDomainMask)
 
@@ -16,28 +16,31 @@ extension FileManager {
         return paths[0]
     }
 
-    func getUserFile(for directory: SearchPathDirectory = .documentDirectory, with file: String) -> URL {
-        return getUserDirectory(for: directory).appendingPathComponent(file)
+    func getUserFile(in directory: SearchPathDirectory = .documentDirectory, with file: String) -> URL {
+        return getUserDirectory(in: directory).appendingPathComponent(file)
     }
 }
 
 extension FileManager {
-    func decode<T: Codable>(for directory: SearchPathDirectory = .documentDirectory, with file: String) -> T {
-        let url = getUserFile(for: directory, with: file)
-
-        guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load \(file) from bundle.")
+    func decode<T: Codable>(in directory: SearchPathDirectory = .documentDirectory, from file: String) -> T? {
+        do {
+            let filename = getUserFile(in: directory, with: file)
+            let data = try Data(contentsOf: filename)
+            let loaded = try JSONDecoder().decode(T.self, from: data)
+            return loaded
+        } catch {
+            print("Failed to decode data from \(file).")
         }
+        return nil
+    }
 
-        let decoder = JSONDecoder()
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "y-MM-dd"
-//        decoder.dateDecodingStrategy = .formatted(formatter)
-
-        guard let loaded = try? decoder.decode(T.self, from: data) else {
-            fatalError("Failed to decode \(file) from bundle.")
+    func encode<T: Codable>(contents: T, in directory: SearchPathDirectory = .documentDirectory, to file: String) {
+        do {
+            let filename = getUserFile(in: directory, with: file)
+            let data = try JSONEncoder().encode(contents)
+            try data.write(to: filename, options: [.atomicWrite, .completeFileProtection])
+        } catch {
+            print("Failed to encode data to \(file).")
         }
-
-        return loaded
     }
 }

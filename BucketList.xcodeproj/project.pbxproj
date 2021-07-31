@@ -16,6 +16,7 @@
 		3EF9780826B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780726B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift */; };
 		3EF9780B26B3502500769DBC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780A26B3502500769DBC /* EditView.swift */; };
 		3EF9780E26B375A500769DBC /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780D26B375A500769DBC /* Result.swift */; };
+		3EF9781126B4008700769DBC /* MKPointAnnotation-Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9781026B4008700769DBC /* MKPointAnnotation-Codable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3EF9780726B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation-ObservableObject.swift"; sourceTree = "<group>"; };
 		3EF9780A26B3502500769DBC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		3EF9780D26B375A500769DBC /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		3EF9781026B4008700769DBC /* MKPointAnnotation-Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation-Codable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				3EF9780426B2368E00769DBC /* MapView.swift */,
 				3EF9780726B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift */,
 				3EF9780A26B3502500769DBC /* EditView.swift */,
+				3EF9781026B4008700769DBC /* MKPointAnnotation-Codable.swift */,
 				3EF9780026B221E000769DBC /* FileManager-Extension.swift */,
 				3EF977F426B20EAA00769DBC /* Assets.xcassets */,
 				3EF977F926B20EAA00769DBC /* Info.plist */,
@@ -159,6 +162,7 @@
 				3EF977F326B20E9E00769DBC /* ContentView.swift in Sources */,
 				3EF9780E26B375A500769DBC /* Result.swift in Sources */,
 				3EF9780826B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift in Sources */,
+				3EF9781126B4008700769DBC /* MKPointAnnotation-Codable.swift in Sources */,
 				3EF977F126B20E9E00769DBC /* BucketListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
