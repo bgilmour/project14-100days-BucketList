@@ -21,42 +21,53 @@ struct MapViewTestView: View {
     @State private var selectedPlace: MKPointAnnotation?
     @State private var showingPlaceDetails = false
     @State private var showingEditScreen = false
+    @State private var isUnlocked = false
 
     var body: some View {
         ZStack {
-            MapView(
-                centerCoordinate: $centerCoordinate,
-                selectedPlace: $selectedPlace,
-                showingPlaceDetails: $showingPlaceDetails,
-                annotations: locations
-            )
-            .edgesIgnoringSafeArea(.all)
+            if isUnlocked {
+                MapView(
+                    centerCoordinate: $centerCoordinate,
+                    selectedPlace: $selectedPlace,
+                    showingPlaceDetails: $showingPlaceDetails,
+                    annotations: locations
+                )
+                .edgesIgnoringSafeArea(.all)
 
-            Circle()
-                .fill(Color.blue)
-                .opacity(0.3)
-                .frame(width: 32, height: 32)
+                Circle()
+                    .fill(Color.blue)
+                    .opacity(0.3)
+                    .frame(width: 32, height: 32)
 
-            VStack {
-                Spacer()
-                HStack {
+                VStack {
                     Spacer()
-                    Button(action: {
-                        let newLocation = CodableMKPointAnnotation()
-                        newLocation.coordinate = centerCoordinate
-                        locations.append(newLocation)
-                        selectedPlace = newLocation
-                        showingEditScreen = true
-                    }) {
-                        Image(systemName: "plus")
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            let newLocation = CodableMKPointAnnotation()
+                            newLocation.coordinate = centerCoordinate
+                            locations.append(newLocation)
+                            selectedPlace = newLocation
+                            showingEditScreen = true
+                        }) {
+                            Image(systemName: "plus")
+                        }
+                        .padding(8)
+                        .background(Color.black.opacity(0.75))
+                        .foregroundColor(.white)
+                        .font(.title)
+                        .clipShape(Circle())
+                        .padding(.trailing)
                     }
-                    .padding(8)
-                    .background(Color.black.opacity(0.75))
-                    .foregroundColor(.white)
-                    .font(.title)
-                    .clipShape(Circle())
-                    .padding(.trailing)
                 }
+            } else {
+                Button("Unlock Places") {
+                    authenticate()
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .clipShape(Capsule())
             }
         }
         .alert(isPresented: $showingPlaceDetails) {
@@ -83,6 +94,26 @@ struct MapViewTestView: View {
 
     func saveData() {
         FileManager.default.encode(contents: locations, to: "SavedPlaces")
+    }
+
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "We need to unlock your data."
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        isUnlocked = true
+                    } else {
+
+                    }
+                }
+            }
+        } else {
+            // no biometrics
+        }
     }
 }
 
