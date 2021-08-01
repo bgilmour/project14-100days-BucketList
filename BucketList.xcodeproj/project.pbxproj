@@ -11,7 +11,6 @@
 		3EF977F326B20E9E00769DBC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF977F226B20E9E00769DBC /* ContentView.swift */; };
 		3EF977F526B20EAA00769DBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF977F426B20EAA00769DBC /* Assets.xcassets */; };
 		3EF977F826B20EAA00769DBC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EF977F726B20EAA00769DBC /* Preview Assets.xcassets */; };
-		3EF9780126B221E000769DBC /* FileManager-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780026B221E000769DBC /* FileManager-Extension.swift */; };
 		3EF9780526B2368E00769DBC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780426B2368E00769DBC /* MapView.swift */; };
 		3EF9780826B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780726B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift */; };
 		3EF9780B26B3502500769DBC /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF9780A26B3502500769DBC /* EditView.swift */; };
@@ -26,7 +25,6 @@
 		3EF977F426B20EAA00769DBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EF977F726B20EAA00769DBC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3EF977F926B20EAA00769DBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3EF9780026B221E000769DBC /* FileManager-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager-Extension.swift"; sourceTree = "<group>"; };
 		3EF9780426B2368E00769DBC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		3EF9780726B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation-ObservableObject.swift"; sourceTree = "<group>"; };
 		3EF9780A26B3502500769DBC /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
@@ -71,7 +69,6 @@
 				3EF9780726B34F1400769DBC /* MKPointAnnotation-ObservableObject.swift */,
 				3EF9780A26B3502500769DBC /* EditView.swift */,
 				3EF9781026B4008700769DBC /* MKPointAnnotation-Codable.swift */,
-				3EF9780026B221E000769DBC /* FileManager-Extension.swift */,
 				3EF977F426B20EAA00769DBC /* Assets.xcassets */,
 				3EF977F926B20EAA00769DBC /* Info.plist */,
 				3EF977F626B20EAA00769DBC /* Preview Content */,
@@ -156,7 +153,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EF9780126B221E000769DBC /* FileManager-Extension.swift in Sources */,
 				3EF9780526B2368E00769DBC /* MapView.swift in Sources */,
 				3EF9780B26B3502500769DBC /* EditView.swift in Sources */,
 				3EF977F326B20E9E00769DBC /* ContentView.swift in Sources */,

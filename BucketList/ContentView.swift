@@ -5,23 +5,21 @@
 //  Created by Bruce Gilmour on 2021-07-28.
 //
 
-import SwiftUI
-import MapKit
 import LocalAuthentication
+import MapKit
+import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        MapViewTestView()
-    }
-}
-
-struct MapViewTestView: View {
     @State private var centerCoordinate = CLLocationCoordinate2D()
     @State private var locations = [CodableMKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
+
     @State private var showingPlaceDetails = false
     @State private var showingEditScreen = false
+
     @State private var isUnlocked = false
+    @State private var showingAuthError = false
+    @State private var errorMessage = ""
 
     var body: some View {
         ZStack {
@@ -68,6 +66,13 @@ struct MapViewTestView: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .clipShape(Capsule())
+                .alert(isPresented: $showingAuthError) {
+                    Alert(
+                        title: Text("Authentication Error"),
+                        message: Text(errorMessage),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
             }
         }
         .alert(isPresented: $showingPlaceDetails) {
@@ -88,17 +93,11 @@ struct MapViewTestView: View {
         .onAppear(perform: loadData)
     }
 
-    func loadData() {
-        locations = FileManager.default.decode(from: "SavedPlaces") ?? [CodableMKPointAnnotation]()
-    }
-
-    func saveData() {
-        FileManager.default.encode(contents: locations, to: "SavedPlaces")
-    }
-
     func authenticate() {
         let context = LAContext()
         var error: NSError?
+
+        print("authenticate")
 
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = "We need to unlock your data."
@@ -107,7 +106,8 @@ struct MapViewTestView: View {
                     if success {
                         isUnlocked = true
                     } else {
-
+                        showingAuthError = true
+                        errorMessage = authenticationError?.localizedDescription ?? "No error info"
                     }
                 }
             }
@@ -115,16 +115,38 @@ struct MapViewTestView: View {
             // no biometrics
         }
     }
-}
 
-extension MKPointAnnotation {
-    static var example: MKPointAnnotation {
-        let annotation = MKPointAnnotation()
-        annotation.title = "London"
-        annotation.subtitle = "Home to the 2012 Summer Olympics."
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
-        return annotation
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
+
+    func loadData() {
+        print("loadData")
+        let filename = getDocumentsDirectory().appendingPathComponent("SavedPlaces")
+        print("url=\(filename.absoluteString)")
+
+        do {
+            let data = try Data(contentsOf: filename)
+            locations = try JSONDecoder().decode([CodableMKPointAnnotation].self, from: data)
+        } catch {
+            print("Unable to load saved data: \(error.localizedDescription)")
+        }
+    }
+
+    func saveData() {
+        do {
+            print("saveData")
+            let filename = getDocumentsDirectory().appendingPathComponent("SavedPlaces")
+            print("url=\(filename.absoluteString)")
+            let data = try JSONEncoder().encode(locations)
+            //try data.write(to: filename, options: [.atomicWrite, .completeFileProtection])
+            try data.write(to: filename, options: [.atomicWrite])
+        } catch {
+            print("Unable to save data: \(error.localizedDescription)")
+        }
+    }
+
 }
 
 struct BiometricsTestView: View {
@@ -205,7 +227,7 @@ struct DocumentsTestView: View {
         Text("DocumentsTestView")
             .onTapGesture {
                 let str = "Test message"
-                let url = FileManager.default.getUserFile(with: "message.txt")
+                let url = getDocumentsDirectory().appendingPathComponent("message.txt")
 
                 do {
                     try str.write(to: url, atomically: true, encoding: .utf8)
@@ -215,6 +237,11 @@ struct DocumentsTestView: View {
                     print(error.localizedDescription)
                 }
             }
+    }
+
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
 
 }

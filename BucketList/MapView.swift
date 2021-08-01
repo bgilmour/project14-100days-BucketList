@@ -5,8 +5,8 @@
 //  Created by Bruce Gilmour on 2021-07-29.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct MapView: UIViewRepresentable {
     @Binding var centerCoordinate: CLLocationCoordinate2D
@@ -76,5 +76,15 @@ struct MapView_Previews: PreviewProvider {
             showingPlaceDetails: .constant(false),
             annotations: [MKPointAnnotation.example]
         )
+    }
+}
+
+extension MKPointAnnotation {
+    static var example: MKPointAnnotation {
+        let annotation = MKPointAnnotation()
+        annotation.title = "London"
+        annotation.subtitle = "Home to the 2012 Summer Olympics."
+        annotation.coordinate = CLLocationCoordinate2D(latitude: 51.5, longitude: -0.13)
+        return annotation
     }
 }
